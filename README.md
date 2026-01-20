@@ -1,3 +1,16 @@
+# HOW TO MAKE THE EMBED APP BLOCK WORK WITH SHOPIFY THEME
+
+The app theme extensions defined in the codebase inside /extensions folder can be embedded inside a shopify theme inside a section block in the theme editor. And if the content of that block is dynamic (from a database or dynamically getting generated) then we have to Proxy that section block's fetch request (using IIFE, so that it gets executed right after render) to our shopify react router app's api endpoint (this endpoint would have a loader function from react router to do the dynamic stuff) and this Proxy config is added to the `shopify.app.toml` as below;
+
+```shell
+[app_proxy]
+url = "https://demo-app-182013.myshopify.com"
+subpath = "backend" 
+prefix = "apps"
+```
+
+
+
 # Shopify App Template - React Router
 
 This is a template for building a [Shopify app](https://shopify.dev/docs/apps/getting-started) using [React Router](https://reactrouter.com/). It was forked from the [Shopify Remix app template](https://github.com/Shopify/shopify-app-template-remix) and converted to React Router.
