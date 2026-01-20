@@ -26,3 +26,8 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [ "https://demo-app-182013.myshopify.com/api/auth" ]
+
+[app_proxy]
+url = "https://demo-app-182013.myshopify.com"
+subpath = "backend" 
+prefix = "apps"

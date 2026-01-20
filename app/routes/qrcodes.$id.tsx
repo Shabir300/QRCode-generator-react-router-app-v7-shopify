@@ -3,8 +3,9 @@ import { useLoaderData } from "react-router";
 
 import db from "../db.server";
 import { getQRCodeImage } from "../models/QRCode.server";
+import { Route } from "./+types/app.qrcodes.$id";
 
-export const loader = async ({ params }) => {
+export const loader = async ({ params }: Route.ComponentProps) => {
   invariant(params.id, "Could not find QR code destination");
 
   const id = Number(params.id);

@@ -1,0 +1,46 @@
+<img alt="qr-code" width="200" height="200" id='qr' />
+
+<script>
+  // Use an IIFE (Immediately Invoked Function Expression) to handle the async call
+  (async () => {
+    const imgElement = document.getElementById('qr');
+    
+    // 1. Get the ID from your Liquid settings
+    const qrId = "{{ section.settings.qr_id }}"; 
+
+    async function getQR(id) {
+      try {
+        // 2. Hit your proxy endpoint and pass the ID as a query parameter
+        const response = await fetch(`/apps/backend/qrimage`);
+        
+        if (!response.ok) throw new Error("Network response was not ok");
+        
+        const data = await response.json();
+        return data.imageUrl;
+      } catch (error) {
+        console.error("Error fetching QR:", error);
+      }
+    }
+
+    // 3. Await the result before assigning it to the src
+    const imgsrc = await getQR(qrId);
+    
+    if (imgsrc) {
+      imgElement.src = imgsrc;
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "QR Code",
+  "target": "section",
+  "settings": [
+    {
+      "type": "number",
+      "id": "qr_id",
+      "label": "QR Code ID"
+    }
+  ]
+}
+{% endschema %}
